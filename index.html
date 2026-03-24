@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mike (Gerald) Translator</title>
+  <style>
+    :root{
+      --bg1:#1a1a1a;
+      --bg2:#2f3525;
+      --card:#101010;
+      --panel:#1b1b1b;
+      --panel2:#262626;
+      --text:#f4f1e8;
+      --muted:#c8c1af;
+      --accent:#d4b24c;
+      --accent2:#9f8230;
+      --line:#4b4536;
+      --subtitle:#fff2a8;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.55)),
+        radial-gradient(circle at top, #50583a 0%, #2b3021 25%, #181818 70%);
+      min-height:100vh;
+    }
+    .wrap{max-width:1160px;margin:0 auto;padding:22px}
+    .hero{
+      border:1px solid var(--line);
+      border-radius:24px;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.55)),
+        linear-gradient(120deg,#59613b,#3d4330 32%,#252525 70%,#171717);
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+      margin-bottom:20px;
+    }
+    .hero-inner{
+      padding:24px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+    .logo{
+      display:inline-block;
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.12);
+      padding:8px 12px;
+      border-radius:999px;
+      color:var(--subtitle);
+      font-weight:700;
+      letter-spacing:.04em;
+      margin-bottom:14px;
+      text-transform:uppercase;
+      font-size:.9rem;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,4vw,3.35rem);
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+    .tagline{
+      max-width:780px;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:1.04rem;
+    }
+    .hero-box{
+      min-width:280px;
+      max-width:360px;
+      background:rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      padding:15px 16px;
+      line-height:1.5;
+      color:var(--muted);
+    }
+    .hero-box strong{
+      display:block;
+      margin-bottom:6px;
+      color:var(--subtitle);
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      font-size:.95rem;
+    }
+    .subtitle-bar{
+      background:#0e0e0e;
+      color:var(--subtitle);
+      padding:18px;
+      text-align:center;
+      font-size:1.18rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+      text-shadow:0 2px 0 rgba(0,0,0,.8);
+      border-top:1px solid rgba(255,255,255,.08);
+      min-height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(18,18,18,.96), rgba(12,12,12,.96));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:20px;
+      box-shadow:0 12px 36px rgba(0,0,0,.28);
+    }
+    .card h2{
+      margin:0 0 14px;
+      font-size:1.2rem;
+      text-transform:uppercase;
+      color:var(--subtitle);
+      letter-spacing:.04em;
+    }
+    label{
+      display:block;
+      margin:12px 0 8px;
+      color:#ece3cb;
+      font-weight:700;
+      font-size:.95rem;
+    }
+    textarea, select, input[type="range"]{width:100%}
+    textarea{
+      min-height:210px;
+      resize:vertical;
+      border-radius:16px;
+      border:1px solid #51492f;
+      background:var(--panel2);
+      color:var(--text);
+      padding:14px;
+      font:inherit;
+      line-height:1.55;
+    }
+    textarea[readonly]{background:#202020}
+    select{
+      border-radius:12px;
+      border:1px solid #51492f;
+      background:var(--panel2);
+      color:var(--text);
+      padding:11px 12px;
+      font:inherit;
+    }
+    input[type="range"]{accent-color:var(--accent)}
+    .controls{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:12px;
+    }
+    @media (max-width:650px){
+      .controls{grid-template-columns:1fr}
+    }
+    .box{
+      background:#181818;
+      border:1px solid #51492f;
+      border-radius:14px;
+      padding:12px;
+    }
+    .meter{
+      color:var(--muted);
+      margin-top:6px;
+      font-size:.95rem;
+    }
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+    button{
+      appearance:none;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      font:inherit;
+      font-weight:800;
+      padding:12px 15px;
+    }
+    .primary{
+      background:linear-gradient(180deg, #e2c15d, #b58f34);
+      color:#261c07;
+    }
+    .secondary{
+      background:#2a2a2a;
+      color:var(--text);
+      border:1px solid #5a523b;
+    }
+    .ghost{
+      background:transparent;
+      color:#ddd2b2;
+      border:1px solid #5a523b;
+    }
+    .subtitle-preview{
+      margin-top:14px;
+      background:#0c0c0c;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:18px;
+      text-align:center;
+      color:var(--subtitle);
+      font-weight:900;
+      text-transform:uppercase;
+      font-size:1.06rem;
+      line-height:1.45;
+      text-shadow:0 2px 0 rgba(0,0,0,.9);
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .status{
+      margin-top:12px;
+      min-height:1.2em;
+      color:#f0dfa7;
+      font-size:.94rem;
+    }
+    .small{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.45;
+    }
+    footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:.92rem;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="logo">Tesco delivery subtitle edition</div>
+          <h1>Mike (Gerald) Translator</h1>
+          <div class="tagline">
+            A parody translator for Mike, also known as Gerald, a Tesco delivery driver that no one understands.
+            Turn plain English into mysterious delivery-driver muttering, or paste the muttering back in and get a best-guess translation.
+          </div>
+        </div>
+        <div class="hero-box">
+          <strong>Example blurb</strong>
+          Mike has pulled up in the Tesco van, muttered something about the customer, the address, the gate code and the shopping, and everyone just nods like they understood every word.
+        </div>
+      </div>
+      <div class="subtitle-bar" id="topSubtitle">[ MIKE HAS SAID SOMETHING ABOUT THE DELIVERY. ]</div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>English → Mike</h2>
+        <label for="plainText">Plain English</label>
+        <textarea id="plainText" placeholder="Example: Mike says the customer put the wrong house number on the Tesco order again."></textarea>
+
+        <div class="controls">
+          <div class="box">
+            <label for="chaos">Mumble level</label>
+            <input id="chaos" type="range" min="1" max="10" value="6">
+            <div class="meter">Current level: <span id="chaosValue">6</span>/10</div>
+          </div>
+          <div>
+            <label for="dialect">Delivery flavour</label>
+            <select id="dialect">
+              <option value="soft">Soft wobble</option>
+              <option value="classic" selected>Classic subtitle panic</option>
+              <option value="max">Full van-side muttering</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="primary" id="translateBtn" type="button">Translate</button>
+          <button class="secondary" id="voiceBtn" type="button">Play Mike voice</button>
+          <button class="secondary" id="exampleBtn" type="button">Load example</button>
+          <button class="ghost" id="copyMumbleBtn" type="button">Copy result</button>
+        </div>
+
+        <label for="mumbleOut">Mike output</label>
+        <textarea id="mumbleOut" readonly placeholder="Mike's mysterious delivery muttering appears here..."></textarea>
+        <div class="subtitle-preview" id="subtitlePreview">SUBTITLES WILL APPEAR HERE</div>
+        <div class="status" id="voiceStatus"></div>
+        <div class="small">
+          The voice button uses your browser’s built-in speech feature with a made-up mumble effect.
+          On some phones you may need to tap once to allow audio.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Mike → English</h2>
+        <label for="mumbleIn">Paste the muttering</label>
+        <textarea id="mumbleIn" placeholder="Example: ah well t'customer's put wrong number on it again and gate's shut and all that..."></textarea>
+
+        <div class="row">
+          <button class="primary" id="translateBackBtn" type="button">Translate back</button>
+          <button class="ghost" id="copyEnglishBtn" type="button">Copy result</button>
+        </div>
+
+        <label for="englishOut">Readable English</label>
+        <textarea id="englishOut" readonly placeholder="Best-guess translation appears here..."></textarea>
+
+        <div class="small">
+          Example: Mike, also known as Gerald, is a Tesco delivery driver that no one understands, but somehow he always knows exactly what the delivery problem is.
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Single-file web app. Works offline once opened in your browser.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+
+      const plainText = $("plainText");
+      const mumbleOut = $("mumbleOut");
+      const mumbleIn = $("mumbleIn");
+      const englishOut = $("englishOut");
+      const chaos = $("chaos");
+      const chaosValue = $("chaosValue");
+      const dialect = $("dialect");
+      const subtitlePreview = $("subtitlePreview");
+      const topSubtitle = $("topSubtitle");
+      const voiceStatus = $("voiceStatus");
+
+      const filler = [
+        "ah well", "you see", "right so", "proper like", "sort of",
+        "well now", "to be fair", "mind", "look here", "bit of a",
+        "reckon", "see now", "aye well"
+      ];
+
+      const wordMap = {
+        "the":"t'",
+        "customer":"customer",
+        "customers":"customers",
+        "tesco":"Tesco",
+        "delivery":"drop",
+        "driver":"driver",
+        "van":"van",
+        "order":"order",
+        "shopping":"shopping",
+        "bags":"bags",
+        "crate":"crate",
+        "door":"door",
+        "house":"place",
+        "address":"address",
+        "number":"number",
+        "wrong":"wrong",
+        "again":"again-like",
+        "late":"late-like",
+        "gate":"gate",
+        "bell":"bell",
+        "phone":"phone",
+        "code":"code",
+        "flat":"flat",
+        "stairs":"stairs",
+        "lift":"lift",
+        "road":"road",
+        "street":"street",
+        "rain":"rain",
+        "traffic":"traffic",
+        "broken":"done in",
+        "fix":"sort",
+        "help":"help",
+        "because":"'cause",
+        "with":"wi'",
+        "going":"goin'",
+        "doing":"doin'",
+        "running":"runnin'",
+        "nothing":"nowt",
+        "something":"summat",
+        "anything":"owt",
+        "very":"proper",
+        "really":"right",
+        "yes":"aye",
+        "no":"nah",
+        "there":"over there"
+      };
+
+      const reverseHints = [
+        [/t'(?=[a-z])/gi, "the "],
+        [/\baye\b/gi, "yes"],
+        [/\bnah\b/gi, "no"],
+        [/\bnowt\b/gi, "nothing"],
+        [/\bsummat\b/gi, "something"],
+        [/\bowt\b/gi, "anything"],
+        [/\bgoin'\b/gi, "going"],
+        [/\bdoin'\b/gi, "doing"],
+        [/\brunnin'\b/gi, "running"],
+        [/\bwi'\b/gi, "with"],
+        [/\bdone in\b/gi, "broken"],
+        [/\bsort\b/gi, "fix"]
+      ];
+
+      const examples = [
+        "Mike says the customer put the wrong house number on the Tesco order again.",
+        "Mike says the delivery was late because the customer did not answer the bell or the phone.",
+        "Mike says the shopping needs to go to the flat round the back and not the front door.",
+        "Mike says the gate code on the order does not work and the customer has not updated it."
+      ];
+
+      function choose(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function maybe(prob) {
+        return Math.random() < prob;
+      }
+
+      function tokenize(text) {
+        return text.match(/[A-Za-z']+|[0-9]+|[.,!?;:()-]/g) || [];
+      }
+
+      function preserveCase(original, replacement) {
+        if (!original) return replacement;
+        if (original === original.toUpperCase()) return replacement.toUpperCase();
+        if (original[0] === original[0].toUpperCase()) {
+          return replacement.charAt(0).toUpperCase() + replacement.slice(1);
+        }
+        return replacement;
+      }
+
+      function englishToMike(text, chaosLevel, mode) {
+        const tokens = tokenize(text);
+        const intensity = chaosLevel / 10;
+        const out = [];
+
+        for (let i = 0; i < tokens.length; i++) {
+          let token = tokens[i];
+          const lower = token.toLowerCase();
+
+          if (/^[0-9]+$/.test(token)) {
+            out.push(token);
+            continue;
+          }
+
+          if (/^[.,!?;:()-]$/.test(token)) {
+            out.push(token);
+            continue;
+          }
+
+          let replaced = wordMap[lower] ? preserveCase(token, wordMap[lower]) : token;
+
+          if (mode !== "soft" && maybe(0.08 + intensity * 0.14) && replaced.length > 4) {
+            replaced = replaced.replace(/[aeiou]/gi, function (m, idx) {
+              return idx === 0 ? m : "";
+            });
+          }
+
+          if (mode === "max" && maybe(0.08 + intensity * 0.12)) {
+            replaced += "-" + choose(["like", "mind", "see", "right"]);
+          }
+
+          if (maybe(0.06 + intensity * 0.10)) {
+            out.push(choose(filler));
+          }
+
+          if (maybe(0.03 + intensity * 0.08) && replaced.length > 4) {
+            out.push(replaced.slice(0, Math.max(2, Math.floor(replaced.length * 0.55))) + "...");
+          }
+
+          if (!(mode !== "soft" && maybe(0.03 + intensity * 0.06))) {
+            out.push(replaced);
+          }
+        }
+
+        let joined = out.join(" ")
+          .replace(/\s+([.,!?;:()])/g, "$1")
+          .replace(/\(\s+/g, "(")
+          .replace(/\s+\)/g, ")")
+          .replace(/\s{2,}/g, " ")
+          .trim();
+
+        if ((mode === "classic" || mode === "max") && maybe(0.55)) {
+          joined += choose([
+            " ...an' that's what it were.",
+            " ...that's t'long and short of it.",
+            " ...best get that sorted.",
+            " ...if tha' follows me.",
+            " ...that's what I'm sayin'."
+          ]);
+        }
+
+        return joined || "";
+      }
+
+      function mikeToEnglish(text) {
+        let clean = text;
+
+        for (let i = 0; i < reverseHints.length; i++) {
+          clean = clean.replace(reverseHints[i][0], reverseHints[i][1]);
+        }
+
+        clean = clean
+          .replace(/\b(?:ah well|you see|right so|proper like|sort of|well now|to be fair|mind|look here|bit of a|reckon|see now|aye well)\b/gi, "")
+          .replace(/\b(?:like|mind|see|right)\b(?=[,.\s-]|$)/gi, "")
+          .replace(/\ban'\b/gi, "and")
+          .replace(/\.\.\./g, "")
+          .replace(/\s{2,}/g, " ")
+          .replace(/\s+([.,!?;:])/g, "$1")
+          .trim();
+
+        if (!clean) {
+          return "Couldn't make much of that. Try pasting a longer bit of Mike muttering.";
+        }
+
+        clean = clean.charAt(0).toUpperCase() + clean.slice(1);
+        if (!/[.!?]$/.test(clean)) clean += ".";
+        return "Best guess: " + clean;
+      }
+
+      function updateSubtitles(text) {
+        const shown = (text || "Mike has said something about the delivery.")
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 160)
+          .toUpperCase();
+        subtitlePreview.textContent = shown;
+        topSubtitle.textContent = "[ " + shown + " ]";
+      }
+
+      function garbleForSpeech(text) {
+        const words = text.split(/\s+/).filter(Boolean);
+        return words.map(function (word) {
+          let w = word
+            .replace(/[aeiou]/gi, function (m, idx) {
+              return idx === 0 ? m : (Math.random() < 0.6 ? "" : m);
+            })
+            .replace(/ing\b/gi, "in'")
+            .replace(/th/gi, Math.random() < 0.5 ? "d" : "th");
+
+          if (Math.random() < 0.18) w = choose(["ah", "er", "mm", "aye"]) + " " + w;
+          if (Math.random() < 0.18) w += " ...";
+          return w;
+        }).join(" ");
+      }
+
+      function getVoicesSafe() {
+        try {
+          if (!("speechSynthesis" in window)) return [];
+          return window.speechSynthesis.getVoices() || [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function speakMike(text) {
+        if (!("speechSynthesis" in window)) {
+          voiceStatus.textContent = "Your browser doesn't support speech playback.";
+          return;
+        }
+
+        const raw = (text || "").trim();
+        if (!raw) {
+          voiceStatus.textContent = "Translate something first, then play Mike voice.";
+          return;
+        }
+
+        try {
+          window.speechSynthesis.cancel();
+        } catch (e) {}
+
+        const utter = new SpeechSynthesisUtterance(garbleForSpeech(raw));
+        const voices = getVoicesSafe();
+        const preferred =
+          voices.find(v => /en-GB/i.test(v.lang)) ||
+          voices.find(v => /english|british|uk/i.test((v.name || "") + " " + (v.lang || ""))) ||
+          voices[0];
+
+        if (preferred) {
+          utter.voice = preferred;
+          utter.lang = preferred.lang || "en-GB";
+        } else {
+          utter.lang = "en-GB";
+        }
+
+        utter.rate = 0.8;
+        utter.pitch = 0.65;
+        utter.volume = 1;
+
+        utter.onstart = function () {
+          voiceStatus.textContent = "Playing Mike's mysterious delivery mumble...";
+        };
+        utter.onend = function () {
+          voiceStatus.textContent = "Finished. Still not totally sure what Mike said.";
+        };
+        utter.onerror = function () {
+          voiceStatus.textContent = "Couldn't play the voice on this browser or device.";
+        };
+
+        try {
+          window.speechSynthesis.speak(utter);
+        } catch (e) {
+          voiceStatus.textContent = "Couldn't start voice playback on this browser or device.";
+        }
+      }
+
+      $("translateBtn").addEventListener("click", function () {
+        const text = plainText.value.trim();
+        if (!text) {
+          mumbleOut.value = "Type some plain English first.";
+          updateSubtitles(mumbleOut.value);
+          return;
+        }
+        mumbleOut.value = englishToMike(text, Number(chaos.value), dialect.value);
+        updateSubtitles(mumbleOut.value);
+        voiceStatus.textContent = "Translated.";
+      });
+
+      $("voiceBtn").addEventListener("click", function () {
+        if (!mumbleOut.value.trim()) {
+          const text = plainText.value.trim();
+          if (!text) {
+            voiceStatus.textContent = "Type something first.";
+            return;
+          }
+          mumbleOut.value = englishToMike(text, Number(chaos.value), dialect.value);
+          updateSubtitles(mumbleOut.value);
+        }
+        speakMike(mumbleOut.value);
+      });
+
+      $("exampleBtn").addEventListener("click", function () {
+        plainText.value = choose(examples);
+        mumbleOut.value = englishToMike(plainText.value, Number(chaos.value), dialect.value);
+        updateSubtitles(mumbleOut.value);
+        voiceStatus.textContent = "Example loaded.";
+      });
+
+      $("translateBackBtn").addEventListener("click", function () {
+        const text = mumbleIn.value.trim();
+        if (!text) {
+          englishOut.value = "Paste some Mike muttering first.";
+          return;
+        }
+        englishOut.value = mikeToEnglish(text);
+      });
+
+      $("copyMumbleBtn").addEventListener("click", async function () {
+        if (!mumbleOut.value) return;
+        try {
+          await navigator.clipboard.writeText(mumbleOut.value);
+          voiceStatus.textContent = "Mike output copied.";
+        } catch (e) {
+          voiceStatus.textContent = "Copy failed on this browser.";
+        }
+      });
+
+      $("copyEnglishBtn").addEventListener("click", async function () {
+        if (!englishOut.value) return;
+        try {
+          await navigator.clipboard.writeText(englishOut.value);
+        } catch (e) {}
+      });
+
+      chaos.addEventListener("input", function () {
+        chaosValue.textContent = chaos.value;
+      });
+
+      plainText.value = examples[0];
+      mumbleOut.value = englishToMike(plainText.value, Number(chaos.value), dialect.value);
+      updateSubtitles(mumbleOut.value);
+      voiceStatus.textContent = "Ready.";
+    })();
+  </script>
+</body>
+</html>
